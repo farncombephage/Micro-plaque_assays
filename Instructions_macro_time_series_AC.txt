@@ -1,0 +1,64 @@
+*** When using the 3-D Printed Singer Pad Stabilizer, Scanner code or Micro-plaque Assay Macros, please cite the original work. 
+
+*** Fiji is a free Software Based on ImageJ and is available at https://imagej.nih.gov/ij/docs/install/index.html 
+
+//Using Fiji to analyze Time-Series Micro-plaque Assays//
+
+In the Macros section from Fiji, drag and drop "Macro_Time_Series.ijm" and a file with time-lapse images in format .tiff inside of this directory.
+Note: the first nine images require to have 01, 02, 03 and so on in each label, instead of 1, 2, 3. Otherwise, Fiji would not organize the stack correctly.
+
+	/Create a stack from sequence images
+File
+Import
+Image sequence
+	Browse in your current directory to select the file with time-lapses
+	Sequence options: 
+		Only check the box "Use virtual stack" This plugin opens images as a virtual stack in one single file 
+	>>OK 
+
+	/Save virtual stack
+File
+Save as 
+	Tiff...
+	Choose the same file and directory and name it as 0.0_Name.tiff 
+		Note: this step will take some time
+	Close Log window
+	
+	/Run the Macro with the virtual stack
+Pluggins
+Macro
+Run
+	Select "Macro_Time_Series.ijm"
+	Choose the virtual stack directory 
+	<<OK
+	Enter experiment name: 
+		Experiment: Specify treament of the plate you want to analyze
+		Plate: select plate number from the image, E.g. 2 (top_right) 
+		>>OK		
+	Action required: Draw box by dragging the yellow guide to crop the selected plate 
+		>>OK
+	Rotate
+		Angle: Choose an angle to straighten the plate in the image (E.g. 90.3 degrees for horizontal view)
+		Select "Preview" check-box to see the angle changes
+		Grid lines: This function is only useful to see the alignement of the Micro-colonies (E.g. 24)		
+			Having a straight aligment is important for the final density analysis
+		Type 0 in "Grid lines" once you finish the aligment
+		Select "Enlarge Image" check-box		
+		>>OK
+	Process Stack? 
+		>>YES
+	Define grid
+		xmult: Meaning how width do you need the grid to match with all Micro-colonies, E.g. 106.600
+		ymult: Meaning how high do you need the grid, E.g. 103.400
+		offsetx: Meaning how wide do you need the grid, E.g. 11.000
+		offsety: Meaning how wide do you need the grid, E.g. -904.000
+		Click OK each time you move the grid around the Micro-colonies to see changes
+			Note: Play around with the grid numbers until obtaining a satisfactorily aligned grid that covers all your Micro-colonies
+		Check the "Okay?" box
+	>>OK
+
+The Macro will process each Micro-colony and will close all windows automatically.
+ 
+Inside the current working directory, it will show three files, the last image from the stack, the image with a grid showing the measured regions of interest, and a .csv with the taken densities.
+
+//
